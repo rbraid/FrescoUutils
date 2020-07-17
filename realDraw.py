@@ -13,8 +13,11 @@ scalefactors.append(ufloat(8.39E-05,2.07E-05))#Average and STDDev of above 3 ite
 scalefactors.append(ufloat(0.40226E-04,0)) #normalizing to full elastic updated FRAC calculation
 scalefactors.append(ufloat(5.75979686146e-05,0)) #normalizing to single point with updated calc
 
+scalefactors.append(ufloat(6.9e-5, 1.1e-5)) # average and stdDev of first 50 when sorted by blurred chi-square
+scalefactors.append(ufloat(7.88e-5, 5.5e-7)) # after fine grid search
 
-scalefactor = scalefactors[3]
+
+scalefactor = scalefactors[-1]
 
 def killXErr(graph):
   if not graph:
