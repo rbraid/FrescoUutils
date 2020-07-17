@@ -29,7 +29,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("inpath", help='Input Location & Name', default="~/nuclear/mine/rb/angulardistribution/angOutReal.root", nargs="?")
 parser.add_argument("outpath", help='Output Location & Name', default="elastic.search", nargs="?")
-parser.add_argument("rRuth", help='Ratio to Rutherford', default="False", nargs="?")
+parser.add_argument("rRuth", help='Ratio to Rutherford', default="False", nargs="?" )
 
 args = parser.parse_args()
 #print "Arguments Parsed"
@@ -59,18 +59,18 @@ outfile.write('1\n')#number of experimental data sets.  ...
 
 #There are 3 &pot namelist lines in IN for the nuclear parts of potential kp=1, so the variables of the interaction potentials (kind=1) in the search are identified by the specification of kp and pline in the &variable namelist in FROUT, along with col for the index to the p array. The potential value gives the initial value for the search, and step the initial magnitude for trial changes.
 
-outfile.write(" &variable kind=5 name='norm' dataset=1 datanorm= 8.02241928938e-05/\n")
+outfile.write(" &variable kind=5 name='norm' dataset=1 datanorm= 0.0000791700123706 step= .1e-6/\n")
 
 ###Coulomb Potential
-outfile.write(" &variable kind=1 name='r0C' kp=1 pline=1 col=3 potential=1.2 valmin=.4 valmax=1.4 step=.01/\n")
+outfile.write(" &variable kind=1 name='r0C' kp=1 pline=1 col=3 potential=.63 step=.01/\n")
 ##Real Woods-Saxon
-outfile.write(" &variable kind=1 name='V' kp=1 pline=2 col=1 potential=60  step=.1/\n")
-outfile.write(" &variable kind=1 name='r0' kp=1 pline=2 col=2 potential=1.18 step=.01/\n")
-outfile.write(" &variable kind=1 name='a' kp=1 pline=2 col=3 potential=.6 step=.01/\n")
+outfile.write(" &variable kind=1 name='V' kp=1 pline=2 col=1 potential=58  step=.1/\n")
+outfile.write(" &variable kind=1 name='r0' kp=1 pline=2 col=2 potential=1.4 step=.01/\n")
+outfile.write(" &variable kind=1 name='a' kp=1 pline=2 col=3 potential=.9 step=.01/\n")
 ###Imaginary Woods-Saxon
-outfile.write(" &variable kind=1 name='W' kp=1 pline=2 col=4 potential=32.6 step=.1/\n")
-outfile.write(" &variable kind=1 name='rW' kp=1 pline=2 col=5 potential=1.18 step=.01/\n")
-outfile.write(" &variable kind=1 name='aW' kp=1 pline=2 col=6 potential=.6 step=.01/\n")
+outfile.write(" &variable kind=1 name='W' kp=1 pline=2 col=4 potential=41 step=.1/\n")
+outfile.write(" &variable kind=1 name='rW' kp=1 pline=2 col=5 potential=1.3 step=.01/\n")
+outfile.write(" &variable kind=1 name='aW' kp=1 pline=2 col=6 potential=.9 step=.01/\n")
 ###Spin orbit
 outfile.write(" &variable kind=1 name='Vso' kp=1 pline=3 col=1 potential=5.7  step=.02/\n")
 outfile.write(" &variable kind=1 name='rso' kp=1 pline=3 col=2 potential=1.15 step=.01/\n")
