@@ -3,30 +3,30 @@ from array import array
 
 def Average(g,low,high):
   debug = False
-  
+
   npoints = 100
   irange = high-low
   rangeiter = irange/npoints
-  
+
   if debug:
     print "Integrating from {} to {} in {} steps".format(low,high,npoints)
-  
+
   isum = 0
   for n in range(npoints+1):
     tmp = g.Eval(low+n*rangeiter)
     isum += tmp
     #if debug:
       #print "{} evals to {}".format(low+n*rangeiter,tmp)
-  
+
   #if debug:
     #print "Average is calculated as sum: {} / range: {} = {}".format(isum,irange,isum/irange)
-  
+
   return isum/npoints
 
 def Blur(graph):
   if graph.GetN() < 30:
     print "Caution, graph has few points, maybe you are grabbing the data by mistake?"
-    
+
   ringGraph = ringFile.Get("COM_d1_s0_Be11")
   XArr = array('d')
   XErrArr = array('d')
@@ -59,13 +59,13 @@ inFile = TFile.Open(args.inpath,"read")
 if not inFile:
   print "Can't open {}".format(inpath)
   quit()
-  
+
 directory = "~/nuclear/mine/analysis/inputRootFiles/"
 ringFile = TFile.Open(directory+"DumbRings.root","read")
 if not ringFile:
   print "Can't open {}".format(directory+"DumbRings.root")
   quit()
-  
+
 outfile = TFile.Open(args.outpath,"recreate")
 
 frescoGraph = inFile.Get("G1")
