@@ -57,7 +57,7 @@ def FrescoDraw(title, name, beforeGraph,afterGraph,blurGraph,dataGraph):
     beforeGraph.SetFillColor(ROOT.kWhite)
     beforeGraph.SetMarkerStyle(20)
     MG.Add(beforeGraph,"L")
-    legend.AddEntry(beforeGraph,"Before sfresco Fit")
+    legend.AddEntry(beforeGraph,"FRESCO output")
 
   MG.Draw("al*")
   # if args.rRuth:
@@ -67,6 +67,9 @@ def FrescoDraw(title, name, beforeGraph,afterGraph,blurGraph,dataGraph):
 
   MG.GetXaxis().SetTitle("Center of Mass Angle in Degrees")
   MG.GetYaxis().SetTitle("Cross Section in mb/sr")
+  if args.rRuth:
+    MG.GetYaxis().SetTitle("Ratio to Rutherford")
+
   MG.Draw()
   legend.Draw()
 
@@ -108,6 +111,9 @@ def FrescoDraw(title, name, beforeGraph,afterGraph,blurGraph,dataGraph):
   canvas.SetLogy()
   MG.GetXaxis().SetTitle("Center of Mass Angle in Degrees")
   MG.GetYaxis().SetTitle("Cross Section in mb/sr")
+  if args.rRuth:
+    MG.GetYaxis().SetTitle("Ratio to Rutherford")
+
   MG.Draw()
   legend.Draw()
 
@@ -155,6 +161,7 @@ else:
 
 if not beforeF:
   print "beforeF not found"
+  beforeF = False
 
 if(args.mode.lower() == "full"):
   afterF = TFile.Open("elastic_after.root","read")
@@ -167,6 +174,7 @@ elif args.mode.lower() == "param":
 
 if not afterF:
   print "afterF not found"
+  afterF = False
 
 if(args.mode.lower() == "full"):
   #blurF = TFile.Open("blurred_after.root","read")
@@ -198,9 +206,13 @@ canvas = TCanvas('canvas','shouldnotseethis',0,0,1280,720)
 
 # def FrescoDraw(title, name, beforeGraph,afterGraph,blurGraph,dataGraph):
 if args.rRuth:
-    FrescoDraw(tmpTitle, tmpName, beforeF.Get("G1"), afterF.Get("G1"), tmpB, afterF.Get("G0"))
+    if afterF:
+        FrescoDraw(tmpTitle, tmpName, beforeF.Get("G1"), afterF.Get("G1"), tmpB, afterF.Get("G0"))
+    else:
+        FrescoDraw(tmpTitle, tmpName, beforeF.Get("G1"), False, tmpB, beforeF.Get("G0"))
 else:
-    FrescoDraw(tmpTitle, tmpName, beforeF.Get("G0"), afterF.Get("G1"), tmpB, afterF.Get("G0"))
+    if afterF:
+        FrescoDraw(tmpTitle, tmpName, beforeF.Get("G0"), afterF.Get("G1"), tmpB, afterF.Get("G0"))
 
 
 #tmpMGa.Draw()
